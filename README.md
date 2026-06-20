@@ -10,6 +10,30 @@ cross-platform binary matrix.
 
 Requires **LuaJIT** (uses `ffi`). Not thread-safe — use one logger per thread.
 
+## Install
+
+**[Lux](https://github.com/nvim-neorocks/lux) (recommended)** — add it as a git dependency:
+
+```sh
+lx add github:forge18/lua-zero-log
+```
+
+or pin it yourself in `lux.toml`:
+
+```toml
+[dependencies.lua-zero-log]
+git = "github:forge18/lua-zero-log"
+version = "<commit-sha-or-semver-tag>"   # omit to track the latest
+```
+
+Then `local zerolog = require("zerolog")`. (A project with git dependencies can't be published to
+luarocks.org — that's a luarocks limitation, not this library's.)
+
+**Vendored (single file)** — there are no dependencies, so you can just copy `src/zerolog.lua` into
+your project (e.g. `lib/zerolog.lua`) and `require` it.
+
+**LÖVE** — LÖVE already runs LuaJIT, so put `zerolog.lua` anywhere on `package.path` and require it.
+
 ## Two tiers
 
 ```lua
