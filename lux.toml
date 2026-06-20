@@ -1,0 +1,22 @@
+package = "lua-zero-log"
+version = "0.1.0"
+lua = ">=5.1"   # LuaJIT — the library uses ffi
+
+[description]
+summary = "Zero-allocation deferred-formatting ring logger for LuaJIT (FFI)."
+maintainer = "forge18"
+labels = [ "logging", "luajit", "ffi" ]
+license = "MIT"
+
+[dependencies]
+# none — pure LuaJIT + ffi
+
+[build]
+type = "builtin"
+
+# Tests need ffi, so they run under luajit directly (the system default interpreter may be PUC Lua,
+# which has no ffi). The runner is framework-free and sets its own package.path.
+[test]
+type = "command"
+command = "luajit"
+flags = [ "spec/run.lua" ]
