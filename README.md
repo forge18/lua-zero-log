@@ -83,14 +83,13 @@ log:drain(function(level, ts, message, seq) ... end)  -- non-destructive
 
 ## Notes & limits
 
-- **Deferred args are numeric** (stored as doubles → integers exact to 2^53). Strings only via the
-  cold path or by pre-registering them in the format string. The hot emitter is *strict*: wrong arity
-  or a non-number raises.
-- **Up to `zerolog.MAXARGS` (8)** numeric args per deferred message.
-- **For a genuinely alloc-free hot loop, inject a JIT-compilable `clock`** (a plain Lua function
-  returning a number). The default `os.clock` is for convenience and can abort the trace.
-- **Timestamps and output are injected.** The library owns the ring and formatting, nothing else —
-  wiring a clock, a file sink, and a crash-time drain is the caller's job.
+| Limit | Detail |
+|-------|--------|
+| Deferred args are numeric | Stored as doubles — integers exact to 2^53. For strings, use the cold path or bake them into the format string. |
+| The hot emitter is strict | Wrong arity or a non-number argument raises. |
+| ≤ 8 args per deferred message | The cap is `zerolog.MAXARGS`. |
+| Inject a JIT-friendly clock for hot loops | A plain Lua function returning a number. The `os.clock` default is convenience-only and can abort the trace. |
+| The library owns only the ring + formatting | A clock, a file sink, and a crash-time drain are the caller's job. |
 
 ## Test
 
